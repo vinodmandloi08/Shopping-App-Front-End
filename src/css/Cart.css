@@ -1,0 +1,4 @@
+.cart-height-width{
+    min-height: calc(100vh - 80px);
+    min-width: 20rem;
+}
