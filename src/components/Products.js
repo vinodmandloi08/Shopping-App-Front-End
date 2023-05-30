@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react'
+import { getAllProducts } from '../services/ProductService';
 
-const Products = ({setCartItems, cartItems}) => {
+const Products = ({ setCartItems, cartItems }) => {
 
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('http://localhost:8765/api/v1/products/all-products');
-      const res = await response.json();
-      console.log(res);
-      let temp = [];
-      await res.forEach(element => {
-        element = {...element,purchaseQuantity:1}
-        temp.push(element);
-      });
-      setData(temp);
+    function fetchData() {
+      getAllProducts().then(response => {
+        return response.data;
+      }).then(async (res) => {
+        let temp = [];
+        await res.forEach(element => {
+          element = { ...element, purchaseQuantity: 1 }
+          temp.push(element);
+        });
+        setData(temp);
+      })
     }
     fetchData();
   }, [])
 
   const handleAddCartItems = (product) => {
-    setCartItems([...cartItems,product])
+    setCartItems([...cartItems, product])
   }
 
   return (
@@ -36,7 +38,7 @@ const Products = ({setCartItems, cartItems}) => {
                 <h3 className="mb-1 text-xs tracking-widest text-gray-500 title-font">CATEGORY</h3>
                 <h2 className="text-lg font-medium text-gray-900 title-font">{product?.productName}</h2>
                 <p className="mt-1">${product?.unitPrice}</p>
-                <button className="flex px-6 py-2 ml-auto text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600" onClick={()=>handleAddCartItems(product)}>Add To Cart</button>
+                <button className="flex px-6 py-2 ml-auto text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600" onClick={() => handleAddCartItems(product)}>Add To Cart</button>
               </div>
             </div>
           }
