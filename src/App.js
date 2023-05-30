@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Products from './components/Products';
 import Cart from './components/Cart';
+import Login from './components/Login';
+import Register from './components/Register';
 
 function App() {
 
@@ -18,6 +20,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/home' element={<Home/>} />
+        <Route path='/login' element={<Login/>} />
+        <Route path='/register' element={<Register/>} />
         <Route path='/products' element={<Products cartItems={cartItems} setCartItems={setCartItems}/>} />
       </Routes>
       </BrowserRouter>
